@@ -40,11 +40,21 @@ impl BalanceSegment {
             user_id: std::env::var("BALANCE_API_USER").ok(),
         };
 
+        let cache_key = cache::cache_key(&config);
+        if let Some(balance) = cache::get_in_memory_balance(&cache_key) {
+            return Ok(Some(SegmentData {
+                primary: balance.format_display(),
+                secondary: String::new(),
+                metadata: HashMap::new(),
+            }));
+        }
+
         let client = ApiClient::new(config);
 
         // 先尝试调用 API 获取最新数据
         if let Ok(balance) = client.get_balance() {
-            let _ = cache::save_cached_balance(&balance);
+            cache::set_in_memory_balance(&cache_key, &balance);
+            let _ = cache::save_cached_balance(&cache_key, &balance);
             return Ok(Some(SegmentData {
                 primary: balance.format_display(),
                 secondary: String::new(),
@@ -53,8 +63,9 @@ impl BalanceSegment {
         }
 
         // API 失败时，使用缓存作为 fallback
-        let (cached, _) = cache::get_cached_balance();
+        let (cached, _) = cache::get_cached_balance(&cache_key);
         if let Some(balance) = cached {
+            cache::set_in_memory_balance(&cache_key, &balance);
             return Ok(Some(SegmentData {
                 primary: balance.format_display(),
                 secondary: String::new(),
