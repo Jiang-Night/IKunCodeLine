@@ -63,12 +63,12 @@ impl ConfigLoader {
         Ok(())
     }
 
-    /// Get the themes directory path (~/.claude/ccline/themes/)
+    /// Get the themes directory path (~/.claude/ikuncodeline/themes/)
     pub fn get_themes_path() -> PathBuf {
         if let Some(home) = dirs::home_dir() {
-            home.join(".claude").join("ccline").join("themes")
+            home.join(".claude").join("ikuncodeline").join("themes")
         } else {
-            PathBuf::from(".claude/ccline/themes")
+            PathBuf::from(".claude/ikuncodeline/themes")
         }
     }
 
@@ -142,12 +142,12 @@ impl Config {
         Ok(())
     }
 
-    /// Get the default config file path (~/.claude/ccline/config.toml)
+    /// Get the default config file path (~/.claude/ikuncodeline/config.toml)
     fn get_config_path() -> PathBuf {
         if let Some(home) = dirs::home_dir() {
-            home.join(".claude").join("ccline").join("config.toml")
+            home.join(".claude").join("ikuncodeline").join("config.toml")
         } else {
-            PathBuf::from(".claude/ccline/config.toml")
+            PathBuf::from(".claude/ikuncodeline/config.toml")
         }
     }
 

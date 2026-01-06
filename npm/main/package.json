@@ -1,23 +1,23 @@
 {
-  "name": "@cometix/ccline",
+  "name": "@ikuncode/ikuncodeline",
   "version": "0.0.0",
-  "description": "CCometixLine - High-performance Claude Code StatusLine tool",
+  "description": "IKunCodeLine - High-performance Claude Code StatusLine tool",
   "bin": {
-    "ccline": "./bin/ccline.js"
+    "ikuncodeline": "./bin/ikuncodeline.js"
   },
   "scripts": {
     "postinstall": "node scripts/postinstall.js"
   },
   "optionalDependencies": {
-    "@cometix/ccline-darwin-x64": "0.0.0",
-    "@cometix/ccline-darwin-arm64": "0.0.0",
-    "@cometix/ccline-linux-x64": "0.0.0",
-    "@cometix/ccline-linux-x64-musl": "0.0.0",
-    "@cometix/ccline-win32-x64": "0.0.0"
+    "@ikuncode/ikuncodeline-darwin-x64": "0.0.0",
+    "@ikuncode/ikuncodeline-darwin-arm64": "0.0.0",
+    "@ikuncode/ikuncodeline-linux-x64": "0.0.0",
+    "@ikuncode/ikuncodeline-linux-x64-musl": "0.0.0",
+    "@ikuncode/ikuncodeline-win32-x64": "0.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Haleclipse/CCometixLine"
+    "url": "https://github.com/Jiang-Night/IKunCodeLine"
   },
   "keywords": ["claude", "statusline", "claude-code", "rust", "cli"],
   "author": "Haleclipse",

@@ -80,7 +80,7 @@ impl UpdateState {
             let config_dir = dirs::home_dir()
                 .unwrap_or_default()
                 .join(".claude")
-                .join("ccline");
+                .join("ikuncodeline");
 
             let state_file = config_dir.join(".update_state.json");
 
@@ -195,7 +195,7 @@ impl UpdateState {
             let config_dir = dirs::home_dir()
                 .unwrap_or_default()
                 .join(".claude")
-                .join("ccline");
+                .join("ikuncodeline");
 
             std::fs::create_dir_all(&config_dir)?;
             let state_file = config_dir.join(".update_state.json");
@@ -350,12 +350,12 @@ pub mod github {
 
     /// Check for updates from GitHub Releases API
     pub fn check_for_updates() -> Result<Option<GitHubRelease>, Box<dyn std::error::Error>> {
-        let url = "https://api.github.com/repos/Haleclipse/CCometixLine/releases/latest";
+        let url = "https://api.github.com/repos/Jiang-Night/IKunCodeLine/releases/latest";
 
         let response = ureq::get(url)
             .set(
                 "User-Agent",
-                &format!("CCometixLine/{}", env!("CARGO_PKG_VERSION")),
+                &format!("IKunCodeLine/{}", env!("CARGO_PKG_VERSION")),
             )
             .call()?;
 

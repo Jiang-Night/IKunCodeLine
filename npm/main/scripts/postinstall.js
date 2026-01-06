@@ -4,17 +4,17 @@ const os = require('os');
 
 // Silent mode detection
 const silent = process.env.npm_config_loglevel === 'silent' || 
-               process.env.CCLINE_SKIP_POSTINSTALL === '1';
+               process.env.IKUNCODELINE_SKIP_POSTINSTALL === '1';
 
 if (!silent) {
-  console.log('🚀 Setting up CCometixLine for Claude Code...');
+  console.log('🚀 Setting up IKunCodeLine for Claude Code...');
 }
 
 try {
   const platform = process.platform;
   const arch = process.arch;
   const homeDir = os.homedir();
-  const claudeDir = path.join(homeDir, '.claude', 'ccline');
+  const claudeDir = path.join(homeDir, '.claude', 'ikuncodeline');
 
   // Create directory
   fs.mkdirSync(claudeDir, { recursive: true });
@@ -53,12 +53,12 @@ try {
   }
 
   const packageMap = {
-    'darwin-x64': '@cometix/ccline-darwin-x64',
-    'darwin-arm64': '@cometix/ccline-darwin-arm64',
-    'linux-x64': '@cometix/ccline-linux-x64',
-    'linux-x64-musl': '@cometix/ccline-linux-x64-musl',
-    'win32-x64': '@cometix/ccline-win32-x64',
-    'win32-ia32': '@cometix/ccline-win32-x64', // Use 64-bit for 32-bit
+    'darwin-x64': '@ikuncode/ikuncodeline-darwin-x64',
+    'darwin-arm64': '@ikuncode/ikuncodeline-darwin-arm64',
+    'linux-x64': '@ikuncode/ikuncodeline-linux-x64',
+    'linux-x64-musl': '@ikuncode/ikuncodeline-linux-x64-musl',
+    'win32-x64': '@ikuncode/ikuncodeline-win32-x64',
+    'win32-ia32': '@ikuncode/ikuncodeline-win32-x64', // Use 64-bit for 32-bit
   };
 
   const packageName = packageMap[platformKey];
@@ -69,7 +69,7 @@ try {
     process.exit(0);
   }
 
-  const binaryName = platform === 'win32' ? 'ccline.exe' : 'ccline';
+  const binaryName = platform === 'win32' ? 'ikuncodeline.exe' : 'ikuncodeline';
   const targetPath = path.join(claudeDir, binaryName);
 
   // Multiple path search strategies for different package managers
@@ -123,7 +123,7 @@ try {
   if (!sourcePath) {
     if (!silent) {
       console.log('Binary package not installed, skipping Claude Code setup');
-      console.log('The global ccline command will still work via npm');
+      console.log('The global ikuncodeline command will still work via npm');
     }
     process.exit(0);
   }
@@ -146,15 +146,15 @@ try {
   }
 
   if (!silent) {
-    console.log('✨ CCometixLine is ready for Claude Code!');
+    console.log('✨ IKunCodeLine is ready for Claude Code!');
     console.log(`📍 Location: ${targetPath}`);
-    console.log('🎉 You can now use: ccline --help');
+    console.log('🎉 You can now use: ikuncodeline --help');
   }
 } catch (error) {
   // Silent failure - don't break installation
   if (!silent) {
     console.log('Note: Could not auto-configure for Claude Code');
-    console.log('The global ccline command will still work.');
-    console.log('You can manually copy ccline to ~/.claude/ccline/ if needed');
+    console.log('The global ikuncodeline command will still work.');
+    console.log('You can manually copy ikuncodeline to ~/.claude/ikuncodeline/ if needed');
   }
 }

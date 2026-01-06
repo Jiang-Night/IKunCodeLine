@@ -1,13 +1,13 @@
 {
-  "name": "@cometix/ccline-darwin-arm64",
+  "name": "@ikuncode/ikuncodeline-darwin-arm64",
   "version": "0.0.0",
-  "description": "macOS ARM64 binary for CCometixLine",
-  "files": ["ccline"],
+  "description": "macOS ARM64 binary for IKunCodeLine",
+  "files": ["ikuncodeline"],
   "os": ["darwin"],
   "cpu": ["arm64"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Haleclipse/CCometixLine"
+    "url": "https://github.com/Jiang-Night/IKunCodeLine"
   },
   "author": "Haleclipse",
   "license": "MIT"
