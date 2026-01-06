@@ -21,10 +21,15 @@ impl ApiClient {
             return Err("API not configured".into());
         }
 
-        let response = self.agent
+        let mut request = self.agent
             .get(&self.config.api_url)
-            .set("Authorization", &format!("Bearer {}", self.config.api_key))
-            .call();
+            .set("Authorization", &format!("Bearer {}", self.config.api_key));
+
+        if let Some(ref user_id) = self.config.user_id {
+            request = request.set("New-Api-User", user_id);
+        }
+
+        let response = request.call();
 
         let response = match response {
             Ok(r) => r,
