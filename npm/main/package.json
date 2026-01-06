@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "IKunCodeLine - High-performance Claude Code StatusLine tool",
   "bin": {
-    "ikuncodeline": "./bin/ikuncodeline.js"
+    "ikuncodeline": "bin/ikuncodeline.js"
   },
   "scripts": {
     "postinstall": "node scripts/postinstall.js"
@@ -17,9 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jiang-Night/IKunCodeLine"
+    "url": "git+https://github.com/Jiang-Night/IKunCodeLine.git"
   },
-  "keywords": ["claude", "statusline", "claude-code", "rust", "cli"],
+  "keywords": [
+    "claude",
+    "statusline",
+    "claude-code",
+    "rust",
+    "cli"
+  ],
   "author": "Haleclipse",
   "license": "MIT",
   "engines": {
