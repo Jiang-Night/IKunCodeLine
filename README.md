@@ -9,7 +9,7 @@ IKunCodeLine 是 **ikuncode 站特供版** Claude Code 状态栏工具，集成�
 
 ## 效果预览
 
-![效果预览](https://github.com/Jiang-Night/IKunCodeLine/raw/main/assets/image.png)
+![效果预览](https://github.com/Jiang-Night/IKunCodeLine/blob/master/assets/image.png)
 
 ## 功能特性
 - 余额显示：对接 ikuncode new-api `/api/user/self`
