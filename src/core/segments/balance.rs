@@ -14,41 +14,36 @@ impl BalanceSegment {
 
 impl Segment for BalanceSegment {
     fn collect(&self, _input: &InputData) -> Option<SegmentData> {
+        // 静默处理所有错误，避免影响整个 statusline
+        self.try_collect().ok().flatten()
+    }
+
+    fn id(&self) -> SegmentId {
+        SegmentId::Balance
+    }
+}
+
+impl BalanceSegment {
+    fn try_collect(&self) -> Result<Option<SegmentData>, Box<dyn std::error::Error>> {
         // 优先使用缓存
         let (cached, _needs_refresh) = cache::get_cached_balance();
         if let Some(balance) = cached {
-            return Some(SegmentData {
+            return Ok(Some(SegmentData {
                 primary: balance.format_display(),
                 secondary: String::new(),
                 metadata: HashMap::new(),
-            });
+            }));
         }
 
-        // 从环境变量获取配置
-        // 优先使用 BALANCE_API_KEY，否则回退到 ANTHROPIC_AUTH_TOKEN
+        // 如果没有 BALANCE_API_KEY，直接返回 None（不显示）
         let balance_key = std::env::var("BALANCE_API_KEY").ok();
-        let use_dedicated_key = balance_key.is_some();
-        let api_key = balance_key
-            .or_else(|| std::env::var("ANTHROPIC_AUTH_TOKEN").ok())?;
+        let api_key = match balance_key {
+            Some(key) => key,
+            None => return Ok(None),
+        };
 
-        // 如果使用专用 BALANCE_API_KEY，默认用 ikuncode URL
-        // 否则从 ANTHROPIC_BASE_URL 推导
-        let api_url = std::env::var("BALANCE_API_URL").unwrap_or_else(|_| {
-            if use_dedicated_key {
-                "https://api.ikuncode.cc/api/user/self".to_string()
-            } else if let Ok(base_url) = std::env::var("ANTHROPIC_BASE_URL") {
-                if let Some(pos) = base_url.find("://") {
-                    let after_scheme = &base_url[pos + 3..];
-                    if let Some(slash_pos) = after_scheme.find('/') {
-                        let domain = &base_url[..pos + 3 + slash_pos];
-                        return format!("{}/api/user/self", domain);
-                    }
-                }
-                format!("{}/api/user/self", base_url.trim_end_matches('/'))
-            } else {
-                "https://api.ikuncode.cc/api/user/self".to_string()
-            }
-        });
+        let api_url = std::env::var("BALANCE_API_URL")
+            .unwrap_or_else(|_| "https://api.ikuncode.cc/api/user/self".to_string());
 
         let config = ApiConfig {
             enabled: true,
@@ -58,17 +53,13 @@ impl Segment for BalanceSegment {
         };
 
         let client = ApiClient::new(config);
-        let balance = client.get_balance().ok()?;
+        let balance = client.get_balance()?;
         let _ = cache::save_cached_balance(&balance);
 
-        Some(SegmentData {
+        Ok(Some(SegmentData {
             primary: balance.format_display(),
             secondary: String::new(),
             metadata: HashMap::new(),
-        })
-    }
-
-    fn id(&self) -> SegmentId {
-        SegmentId::Balance
+        }))
     }
 }
