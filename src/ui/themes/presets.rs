@@ -157,6 +157,7 @@ impl ThemePresets {
                 theme_default::cost_segment(),
                 theme_default::session_segment(),
                 theme_default::output_style_segment(),
+                theme_default::balance_segment(),
             ],
             theme: "default".to_string(),
         }

@@ -183,6 +183,11 @@ impl PreviewComponent {
                         map
                     },
                 },
+                SegmentId::Balance => SegmentData {
+                    primary: "$12.34".to_string(),
+                    secondary: "".to_string(),
+                    metadata: HashMap::new(),
+                },
             };
 
             segments_data.push((segment_config.clone(), mock_data));

@@ -17,11 +17,10 @@ fn get_cache_file() -> Option<PathBuf> {
 }
 
 fn is_cache_fresh(path: &PathBuf) -> bool {
-    fs::metadata(path)
-        .and_then(|m| m.modified())
-        .and_then(|t| SystemTime::now().duration_since(t).ok())
-        .map(|d| d.as_secs() < CACHE_FRESH_SECS)
-        .unwrap_or(false)
+    let Ok(metadata) = fs::metadata(path) else { return false };
+    let Ok(modified) = metadata.modified() else { return false };
+    let Ok(elapsed) = SystemTime::now().duration_since(modified) else { return false };
+    elapsed.as_secs() < CACHE_FRESH_SECS
 }
 
 /// 返回 (缓存数据, 是否需要刷新)

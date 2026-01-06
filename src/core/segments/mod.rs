@@ -1,3 +1,4 @@
+pub mod balance;
 pub mod context_window;
 pub mod cost;
 pub mod directory;
@@ -34,3 +35,4 @@ pub use output_style::OutputStyleSegment;
 pub use session::SessionSegment;
 pub use update::UpdateSegment;
 pub use usage::UsageSegment;
+pub use balance::BalanceSegment;
