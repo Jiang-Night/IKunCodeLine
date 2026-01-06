@@ -24,18 +24,6 @@ impl Segment for GroupSegment {
 
 impl GroupSegment {
     fn try_collect(&self) -> Result<Option<SegmentData>, Box<dyn std::error::Error>> {
-        // 优先使用缓存
-        let (cached, _) = cache::get_cached_balance();
-        if let Some(balance) = cached {
-            if !balance.group.is_empty() {
-                return Ok(Some(SegmentData {
-                    primary: balance.group.clone(),
-                    secondary: String::new(),
-                    metadata: HashMap::new(),
-                }));
-            }
-        }
-
         // 如果没有 BALANCE_API_KEY，直接返回 None
         let api_key = match std::env::var("BALANCE_API_KEY").ok() {
             Some(key) => key,
@@ -53,17 +41,31 @@ impl GroupSegment {
         };
 
         let client = ApiClient::new(config);
-        let balance = client.get_balance()?;
-        let _ = cache::save_cached_balance(&balance);
 
-        if balance.group.is_empty() {
-            return Ok(None);
+        // 先尝试调用 API 获取最新数据
+        if let Ok(balance) = client.get_balance() {
+            let _ = cache::save_cached_balance(&balance);
+            if !balance.group.is_empty() {
+                return Ok(Some(SegmentData {
+                    primary: balance.group,
+                    secondary: String::new(),
+                    metadata: HashMap::new(),
+                }));
+            }
         }
 
-        Ok(Some(SegmentData {
-            primary: balance.group,
-            secondary: String::new(),
-            metadata: HashMap::new(),
-        }))
+        // API 失败时，使用缓存作为 fallback
+        let (cached, _) = cache::get_cached_balance();
+        if let Some(balance) = cached {
+            if !balance.group.is_empty() {
+                return Ok(Some(SegmentData {
+                    primary: balance.group,
+                    secondary: String::new(),
+                    metadata: HashMap::new(),
+                }));
+            }
+        }
+
+        Ok(None)
     }
 }

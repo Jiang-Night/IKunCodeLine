@@ -14,7 +14,6 @@ impl BalanceSegment {
 
 impl Segment for BalanceSegment {
     fn collect(&self, _input: &InputData) -> Option<SegmentData> {
-        // 静默处理所有错误，避免影响整个 statusline
         self.try_collect().ok().flatten()
     }
 
@@ -25,19 +24,8 @@ impl Segment for BalanceSegment {
 
 impl BalanceSegment {
     fn try_collect(&self) -> Result<Option<SegmentData>, Box<dyn std::error::Error>> {
-        // 优先使用缓存
-        let (cached, _needs_refresh) = cache::get_cached_balance();
-        if let Some(balance) = cached {
-            return Ok(Some(SegmentData {
-                primary: balance.format_display(),
-                secondary: String::new(),
-                metadata: HashMap::new(),
-            }));
-        }
-
-        // 如果没有 BALANCE_API_KEY，直接返回 None（不显示）
-        let balance_key = std::env::var("BALANCE_API_KEY").ok();
-        let api_key = match balance_key {
+        // 如果没有 BALANCE_API_KEY，直接返回 None
+        let api_key = match std::env::var("BALANCE_API_KEY").ok() {
             Some(key) => key,
             None => return Ok(None),
         };
@@ -53,13 +41,27 @@ impl BalanceSegment {
         };
 
         let client = ApiClient::new(config);
-        let balance = client.get_balance()?;
-        let _ = cache::save_cached_balance(&balance);
 
-        Ok(Some(SegmentData {
-            primary: balance.format_display(),
-            secondary: String::new(),
-            metadata: HashMap::new(),
-        }))
+        // 先尝试调用 API 获取最新数据
+        if let Ok(balance) = client.get_balance() {
+            let _ = cache::save_cached_balance(&balance);
+            return Ok(Some(SegmentData {
+                primary: balance.format_display(),
+                secondary: String::new(),
+                metadata: HashMap::new(),
+            }));
+        }
+
+        // API 失败时，使用缓存作为 fallback
+        let (cached, _) = cache::get_cached_balance();
+        if let Some(balance) = cached {
+            return Ok(Some(SegmentData {
+                primary: balance.format_display(),
+                secondary: String::new(),
+                metadata: HashMap::new(),
+            }));
+        }
+
+        Ok(None)
     }
 }
