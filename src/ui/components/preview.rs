@@ -184,7 +184,17 @@ impl PreviewComponent {
                     },
                 },
                 SegmentId::Balance => SegmentData {
-                    primary: "$12.34".to_string(),
+                    primary: "¥125.02".to_string(),
+                    secondary: "".to_string(),
+                    metadata: HashMap::new(),
+                },
+                SegmentId::Group => SegmentData {
+                    primary: "C1-青铜背带裤".to_string(),
+                    secondary: "".to_string(),
+                    metadata: HashMap::new(),
+                },
+                SegmentId::Branding => SegmentData {
+                    primary: "IKunCode".to_string(),
                     secondary: "".to_string(),
                     metadata: HashMap::new(),
                 },

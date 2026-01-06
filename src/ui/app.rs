@@ -507,6 +507,8 @@ impl App {
                         SegmentId::OutputStyle => "Output Style",
                         SegmentId::Update => "Update",
                         SegmentId::Balance => "Balance",
+                        SegmentId::Group => "Group",
+                        SegmentId::Branding => "Branding",
                     };
                     let is_enabled = segment.enabled;
                     self.status_message = Some(format!(
@@ -535,6 +537,8 @@ impl App {
                                 SegmentId::OutputStyle => "Output Style",
                                 SegmentId::Update => "Update",
                                 SegmentId::Balance => "Balance",
+                                SegmentId::Group => "Group",
+                                SegmentId::Branding => "Branding",
                             };
                             let is_enabled = segment.enabled;
                             self.status_message = Some(format!(

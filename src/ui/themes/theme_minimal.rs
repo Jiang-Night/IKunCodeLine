@@ -180,3 +180,39 @@ pub fn balance_segment() -> SegmentConfig {
         options: HashMap::new(),
     }
 }
+
+pub fn group_segment() -> SegmentConfig {
+    SegmentConfig {
+        id: SegmentId::Group,
+        enabled: false,
+        icon: IconConfig {
+            plain: "👤".to_string(),
+            nerd_font: "\u{f0c0}".to_string(),
+        },
+        colors: ColorConfig {
+            icon: Some(AnsiColor::Color16 { c16: 13 }),
+            text: Some(AnsiColor::Color16 { c16: 13 }),
+            background: None,
+        },
+        styles: TextStyleConfig::default(),
+        options: HashMap::new(),
+    }
+}
+
+pub fn branding_segment() -> SegmentConfig {
+    SegmentConfig {
+        id: SegmentId::Branding,
+        enabled: false,
+        icon: IconConfig {
+            plain: "".to_string(),
+            nerd_font: "".to_string(),
+        },
+        colors: ColorConfig {
+            icon: Some(AnsiColor::Color16 { c16: 8 }),
+            text: Some(AnsiColor::Color16 { c16: 8 }),
+            background: None,
+        },
+        styles: TextStyleConfig::default(),
+        options: HashMap::new(),
+    }
+}
