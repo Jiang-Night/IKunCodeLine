@@ -28,9 +28,15 @@ fn get_cache_file(cache_key: &str) -> Option<PathBuf> {
 }
 
 fn is_cache_fresh(path: &PathBuf) -> bool {
-    let Ok(metadata) = fs::metadata(path) else { return false };
-    let Ok(modified) = metadata.modified() else { return false };
-    let Ok(elapsed) = SystemTime::now().duration_since(modified) else { return false };
+    let Ok(metadata) = fs::metadata(path) else {
+        return false;
+    };
+    let Ok(modified) = metadata.modified() else {
+        return false;
+    };
+    let Ok(elapsed) = SystemTime::now().duration_since(modified) else {
+        return false;
+    };
     elapsed.as_secs() < CACHE_FRESH_SECS
 }
 

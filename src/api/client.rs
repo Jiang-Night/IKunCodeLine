@@ -21,7 +21,8 @@ impl ApiClient {
             return Err("API not configured".into());
         }
 
-        let mut request = self.agent
+        let mut request = self
+            .agent
             .get(&self.config.api_url)
             .set("Authorization", &format!("Bearer {}", self.config.api_key));
 
@@ -49,7 +50,10 @@ impl ApiClient {
         let resp: UserResponse = serde_json::from_str(&response.into_string()?)?;
 
         if !resp.success {
-            return Err(resp.message.unwrap_or_else(|| "Unknown error".to_string()).into());
+            return Err(resp
+                .message
+                .unwrap_or_else(|| "Unknown error".to_string())
+                .into());
         }
 
         resp.data.ok_or_else(|| "No data in response".into())

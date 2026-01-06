@@ -286,9 +286,21 @@ pub fn group_segment() -> SegmentConfig {
             nerd_font: "\u{f0c0}".to_string(),
         },
         colors: ColorConfig {
-            icon: Some(AnsiColor::Rgb { r: 255, g: 255, b: 255 }),
-            text: Some(AnsiColor::Rgb { r: 255, g: 255, b: 255 }),
-            background: Some(AnsiColor::Rgb { r: 255, g: 152, b: 0 }),
+            icon: Some(AnsiColor::Rgb {
+                r: 255,
+                g: 255,
+                b: 255,
+            }),
+            text: Some(AnsiColor::Rgb {
+                r: 255,
+                g: 255,
+                b: 255,
+            }),
+            background: Some(AnsiColor::Rgb {
+                r: 255,
+                g: 152,
+                b: 0,
+            }),
         },
         styles: TextStyleConfig::default(),
         options: HashMap::new(),
@@ -304,8 +316,16 @@ pub fn branding_segment() -> SegmentConfig {
             nerd_font: "".to_string(),
         },
         colors: ColorConfig {
-            icon: Some(AnsiColor::Rgb { r: 150, g: 150, b: 150 }),
-            text: Some(AnsiColor::Rgb { r: 150, g: 150, b: 150 }),
+            icon: Some(AnsiColor::Rgb {
+                r: 150,
+                g: 150,
+                b: 150,
+            }),
+            text: Some(AnsiColor::Rgb {
+                r: 150,
+                g: 150,
+                b: 150,
+            }),
             background: None,
         },
         styles: TextStyleConfig::default(),
