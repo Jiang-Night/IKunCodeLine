@@ -238,3 +238,33 @@ pub fn usage_segment() -> SegmentConfig {
         },
     }
 }
+
+pub fn balance_segment() -> SegmentConfig {
+    SegmentConfig {
+        id: SegmentId::Balance,
+        enabled: false,
+        icon: IconConfig {
+            plain: "💵".to_string(),
+            nerd_font: "\u{f0d6}".to_string(),
+        },
+        colors: ColorConfig {
+            icon: Some(AnsiColor::Rgb {
+                r: 255,
+                g: 255,
+                b: 255,
+            }),
+            text: Some(AnsiColor::Rgb {
+                r: 255,
+                g: 255,
+                b: 255,
+            }),
+            background: Some(AnsiColor::Rgb {
+                r: 46,
+                g: 160,
+                b: 67,
+            }),
+        },
+        styles: TextStyleConfig::default(),
+        options: HashMap::new(),
+    }
+}
