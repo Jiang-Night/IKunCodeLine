@@ -510,6 +510,18 @@ pub fn collect_all_segments(
                 let segment = UpdateSegment::new();
                 segment.collect(input)
             }
+            crate::config::SegmentId::Balance => {
+                let segment = BalanceSegment::new();
+                segment.collect(input)
+            }
+            crate::config::SegmentId::Group => {
+                let segment = GroupSegment::new();
+                segment.collect(input)
+            }
+            crate::config::SegmentId::Branding => {
+                let segment = BrandingSegment::new();
+                segment.collect(input)
+            }
         };
 
         if let Some(data) = segment_data {

@@ -1,7 +1,10 @@
+pub mod balance;
+pub mod branding;
 pub mod context_window;
 pub mod cost;
 pub mod directory;
 pub mod git;
+pub mod group;
 pub mod model;
 pub mod output_style;
 pub mod session;
@@ -25,10 +28,13 @@ pub struct SegmentData {
 }
 
 // Re-export all segment types
+pub use balance::BalanceSegment;
+pub use branding::BrandingSegment;
 pub use context_window::ContextWindowSegment;
 pub use cost::CostSegment;
 pub use directory::DirectorySegment;
 pub use git::GitSegment;
+pub use group::GroupSegment;
 pub use model::ModelSegment;
 pub use output_style::OutputStyleSegment;
 pub use session::SessionSegment;

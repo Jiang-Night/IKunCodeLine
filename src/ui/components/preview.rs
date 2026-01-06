@@ -105,11 +105,11 @@ impl PreviewComponent {
                     },
                 },
                 SegmentId::Directory => SegmentData {
-                    primary: "CCometixLine".to_string(),
+                    primary: "IKunCodeLine".to_string(),
                     secondary: "".to_string(),
                     metadata: {
                         let mut map = HashMap::new();
-                        map.insert("current_dir".to_string(), "~/CCometixLine".to_string());
+                        map.insert("current_dir".to_string(), "~/IKunCodeLine".to_string());
                         map
                     },
                 },
@@ -182,6 +182,21 @@ impl PreviewComponent {
                         map.insert("update_available".to_string(), "false".to_string());
                         map
                     },
+                },
+                SegmentId::Balance => SegmentData {
+                    primary: "¥125.02".to_string(),
+                    secondary: "".to_string(),
+                    metadata: HashMap::new(),
+                },
+                SegmentId::Group => SegmentData {
+                    primary: "C1-青铜背带裤".to_string(),
+                    secondary: "".to_string(),
+                    metadata: HashMap::new(),
+                },
+                SegmentId::Branding => SegmentData {
+                    primary: "IKunCode".to_string(),
+                    secondary: "".to_string(),
+                    metadata: HashMap::new(),
                 },
             };
 

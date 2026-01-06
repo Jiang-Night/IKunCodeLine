@@ -73,6 +73,9 @@ pub enum SegmentId {
     Session,
     OutputStyle,
     Update,
+    Balance,
+    Group,
+    Branding,
 }
 
 // Legacy compatibility structure

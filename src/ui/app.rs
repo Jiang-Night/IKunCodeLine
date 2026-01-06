@@ -386,7 +386,7 @@ impl App {
             .split(f.area());
 
         // Title
-        let title_text = format!("CCometixLine Configurator v{}", env!("CARGO_PKG_VERSION"));
+        let title_text = format!("IKunCodeLine Configurator v{}", env!("CARGO_PKG_VERSION"));
         let title = Paragraph::new(title_text)
             .block(Block::default().borders(Borders::ALL))
             .style(Style::default().fg(Color::Cyan))
@@ -506,6 +506,9 @@ impl App {
                         SegmentId::Session => "Session",
                         SegmentId::OutputStyle => "Output Style",
                         SegmentId::Update => "Update",
+                        SegmentId::Balance => "Balance",
+                        SegmentId::Group => "Group",
+                        SegmentId::Branding => "Branding",
                     };
                     let is_enabled = segment.enabled;
                     self.status_message = Some(format!(
@@ -533,6 +536,9 @@ impl App {
                                 SegmentId::Session => "Session",
                                 SegmentId::OutputStyle => "Output Style",
                                 SegmentId::Update => "Update",
+                                SegmentId::Balance => "Balance",
+                                SegmentId::Group => "Group",
+                                SegmentId::Branding => "Branding",
                             };
                             let is_enabled = segment.enabled;
                             self.status_message = Some(format!(

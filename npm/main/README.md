@@ -1,42 +1,45 @@
-# @cometix/ccline
+# @ikuncode/ikuncodeline
 
-CCometixLine - High-performance Claude Code StatusLine tool
+IKunCodeLine 是 ikuncode 站特供版 Claude Code 状态栏工具。
 
-## Installation
-
+## 安装
 ```bash
-npm install -g @cometix/ccline
+npm install -g @ikuncode/ikuncodeline
 ```
 
-## Features
+安装后默认路径：`~/.claude/ikuncodeline/ikuncodeline`
 
-- 🚀 **Fast**: Written in Rust for maximum performance
-- 🌍 **Cross-platform**: Works on Windows, macOS, and Linux
-- 📦 **Easy installation**: One command via npm
-- 🔄 **Auto-update**: Built-in update notifications
-- 🎨 **Beautiful**: Nerd Font icons and colors
-
-## Usage
-
-After installation, ccline is automatically configured for Claude Code at `~/.claude/ccline/ccline`.
-
-You can also use it directly:
-
+## 使用
 ```bash
-ccline --help
-ccline --version
+ikuncodeline --help
+ikuncodeline --version
 ```
 
-## For Users in China
-
-Use npm mirror for faster installation:
-
-```bash
-npm install -g @cometix/ccline --registry https://registry.npmmirror.com
+## Claude Code 配置
+在 `~/.claude/settings.json` 中设置：
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/ikuncodeline/ikuncodeline",
+    "padding": 0
+  }
+}
 ```
 
-## More Information
+## 余额配置
+在 `settings.json` 的 `env` 中加入：
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "xxx",
+    "ANTHROPIC_BASE_URL": "xxx",
+    "BALANCE_API_KEY": "YOUR_TOKEN",
+    "BALANCE_API_USER": "12345"
+  }
+}
+```
 
-- GitHub: https://github.com/Haleclipse/CCometixLine
-- Issues: https://github.com/Haleclipse/CCometixLine/issues
-- License: MIT
+- 官网：https://api.ikuncode.cc/
+- 当前仓库：https://github.com/Jiang-Night/IKunCodeLine
+- 原作者仓库：https://github.com/Haleclipse/CCometixLine
